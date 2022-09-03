@@ -8,10 +8,6 @@ namespace SalaryCalc
 {
 	internal interface IChiefStaff
 	{
-		decimal GetSubordinateSalary(DateTime dateTime)
-		{
-			return Subordinates.Sum(s => s.GetSalaryOnDate(dateTime));		
-		}
-		List<Staff> Subordinates { get=> throw new NotImplementedException(); set=>throw new NotImplementedException();	}
+		public void AddSubordinate(Staff subordinate);
 	}
 }

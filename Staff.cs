@@ -8,6 +8,7 @@ namespace SalaryCalc
 {
 	internal abstract class Staff
 	{
+		private ChiefStaff chief;
 		public Staff(int yearlyInterestRate, int maxInterestRate)
 		{ 
 			this.yearlyInterestRate = yearlyInterestRate;
@@ -17,7 +18,17 @@ namespace SalaryCalc
 		public string Name { get; set; }
 		public DateTime startDate { get; set; }
 		public decimal baseSalary { get; set; }
-		public IChiefStaff chief { get; set; }
+		public ChiefStaff Chief { 
+			get
+			{
+				return chief;
+			}
+			set
+			{
+				this.chief = value;
+				chief.AddSubordinate(this, 1);
+			}
+				}
 		public virtual decimal GetSalaryOnDate(DateTime dateTime)
 		{
 			if (dateTime < startDate)
