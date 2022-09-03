@@ -14,10 +14,11 @@ Console.WriteLine("Hello, World!");
  
 Требуется: составить архитектуру классов, описывающих данную модель, а также реализовать алгоритм расчета зарплаты каждого сотрудника на произвольный момент времени (а также подсчёт суммарной зарплаты всех сотрудников фирмы в целом) с помощью c# (веб сервис/консоль/пользовательский интерфейс на выбор, это не существенно для данной задачи).
 */
-int companySize = 10;
+int companySize = 10000;
 Staff[] staffs = new Staff[companySize];
-staffs[0] = new Manager();
-Random random = new Random(companySize);
+Sales director = new Sales();
+staffs[0] = director;
+Random random = new Random();
 for (int i = 1; i < staffs.Length; i++)
 {	
 	int r = random.Next(1,4);
@@ -43,3 +44,6 @@ for (int i = 1; i < staffs.Length; i++)
 
 	staffs[i].Chief = (ChiefStaff)newChief;
 }
+
+Console.WriteLine(director.CurrentSalary);
+Console.WriteLine(director.GetTotalCompanySalary(DateTime.Now));

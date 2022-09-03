@@ -27,5 +27,9 @@ namespace SalaryCalc
 				Chief.AddSubordinate(subordinate, level + 1);
 			}
 		}
+		public decimal GetTotalCompanySalary(DateTime dateTime)
+		{
+			return subordinates.Sum(s => s.GetSalaryOnDate(dateTime)) / 100;
+		}
 	}
 }

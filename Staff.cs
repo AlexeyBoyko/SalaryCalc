@@ -8,16 +8,19 @@ namespace SalaryCalc
 {
 	internal abstract class Staff
 	{
+		private decimal baseSalary = 10;
+
 		private ChiefStaff chief;
 		public Staff(int yearlyInterestRate, int maxInterestRate)
 		{ 
 			this.yearlyInterestRate = yearlyInterestRate;
 			this.maxInterestRate = maxInterestRate;
+			startDate = DateTime.Now; // TODO: добавить возможность задания даты поступления на работу
 		}
 		public int yearlyInterestRate, maxInterestRate;
 		public string Name { get; set; }
-		public DateTime startDate { get; set; }
-		public decimal baseSalary { get; set; }
+		public DateTime startDate;
+		public decimal BaseSalary { get { return baseSalary; } }
 		public ChiefStaff Chief { 
 			get
 			{
@@ -40,5 +43,7 @@ namespace SalaryCalc
 
 			return baseSalary * (1.0m + effectiveInterestRate/100);
 		}
+		public decimal CurrentSalary
+		{ get { return GetSalaryOnDate(DateTime.Now); } }
 	}
 }
