@@ -8,6 +8,11 @@ namespace SalaryCalc
 {
 	internal abstract class ChiefStaff : Staff
 	{
+		/// <summary>
+		/// кэшируем расчет на дату
+		/// </summary>
+		private Dictionary<DateTime, decimal> salaryOnDate = new Dictionary<DateTime, decimal>();
+
 		decimal subordinatePremiumRate;
 		public ChiefStaff(int yearlyInterestRate, int maxInterestRate, decimal subordinatePremiumRate) : base(yearlyInterestRate, maxInterestRate)
 		{
@@ -18,7 +23,15 @@ namespace SalaryCalc
 
 		public override decimal GetSalaryOnDate(DateTime dateTime)
 		{
-			return base.GetSalaryOnDate(dateTime) + subordinatePremiumRate * subordinates.Sum(s => s.GetSalaryOnDate(dateTime))/100;
+			dateTime = dateTime.Date;
+
+			if (salaryOnDate.ContainsKey(dateTime))
+			{
+				return salaryOnDate[dateTime];
+			}
+			decimal salary = base.GetSalaryOnDate(dateTime) + subordinatePremiumRate * subordinates.Sum(s => s.GetSalaryOnDate(dateTime)) / 100;
+			salaryOnDate.Add(dateTime, salary);
+			return salary;
 		}
 		public virtual void AddSubordinate(Staff subordinate, int level)
 		{

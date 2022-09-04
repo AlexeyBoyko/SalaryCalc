@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SalaryCalc
 {
 	internal abstract class Staff
-	{
+	{		
 		private decimal baseSalary = 10;
 
 		private ChiefStaff chief;
@@ -15,7 +15,7 @@ namespace SalaryCalc
 		{ 
 			this.yearlyInterestRate = yearlyInterestRate;
 			this.maxInterestRate = maxInterestRate;
-			startDate = DateTime.Now; // TODO: добавить возможность задания даты поступления на работу
+			startDate = DateTime.Now.Date; // TODO: добавить возможность задания даты поступления на работу
 		}
 		public int yearlyInterestRate, maxInterestRate;
 		public string Name { get; set; }
@@ -34,6 +34,8 @@ namespace SalaryCalc
 				}
 		public virtual decimal GetSalaryOnDate(DateTime dateTime)
 		{
+			dateTime = dateTime.Date;
+
 			if (dateTime < startDate)
 				return 0;
 
