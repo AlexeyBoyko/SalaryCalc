@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using SalaryCalc;
 
-Console.WriteLine("Hello, World!");
+
 
 
 /*
@@ -13,8 +13,15 @@ Console.WriteLine("Hello, World!");
 У сотрудников (кроме Employee) может быть любое количество подчинённых любого вида.
  
 Требуется: составить архитектуру классов, описывающих данную модель, а также реализовать алгоритм расчета зарплаты каждого сотрудника на произвольный момент времени (а также подсчёт суммарной зарплаты всех сотрудников фирмы в целом) с помощью c# (веб сервис/консоль/пользовательский интерфейс на выбор, это не существенно для данной задачи).
+
+Система должна быть проверена unit-testами (nUnit) /не обязательно полное покрытие, но должны быть показательные тесты для проверки бизнес-логики/.
+ 
+Кроме того, требуется написать (на английском) краткий обзор своего решения тестовой задачи, описав плюсы и минусы архитектуры (что можно улучшить или поменять или еще какие-то соображения для использования решения в реальных целях).
+Комментарии в исходном требуется написать на английском языке
 */
-int companySize = 1000000;
+var startTime = System.Diagnostics.Stopwatch.StartNew();
+
+int companySize = 1_000_000;
 Staff[] staffs = new Staff[companySize];
 Sales director = new Sales();
 staffs[0] = director;
@@ -44,6 +51,13 @@ for (int i = 1; i < staffs.Length; i++)
 
 	staffs[i].Chief = (ChiefStaff)newChief;
 }
+startTime.Stop();
+var resultTime = startTime.Elapsed;
+Console.WriteLine("Elapsed time create staff=" + resultTime.ToString());
+startTime = System.Diagnostics.Stopwatch.StartNew();
 
 Console.WriteLine(director.CurrentSalary);
 Console.WriteLine(director.GetTotalCompanySalary(DateTime.Now));
+startTime.Stop();
+resultTime = startTime.Elapsed;
+Console.WriteLine("Elapsed time calculate salary=" + resultTime.ToString());
